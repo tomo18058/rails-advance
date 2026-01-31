@@ -1,0 +1,41 @@
+<% if event.errors.any? %>
+  <div style="color: red;">
+    <p><%= event.errors.count %>件のエラーがあります</p>
+    <ul>
+      <% event.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: [:admin, event] do |f| %>
+  <div>
+    <%= f.label :name, "イベント名" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :held_on, "開催日" %><br>
+    <%= f.date_field :held_on %>
+  </div>
+
+  <div>
+    <%= f.label :organizer, "主催" %><br>
+    <%= f.text_field :organizer %>
+  </div>
+
+  <div>
+    <%= f.label :target, "対象" %><br>
+    <%= f.text_field :target %>
+  </div>
+
+  <div>
+    <%= f.label :description, "説明" %><br>
+    <%= f.text_area :description, rows: 5 %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

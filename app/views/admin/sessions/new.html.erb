@@ -1,0 +1,19 @@
+<h1>管理ログイン</h1>
+
+<% if flash[:alert].present? %>
+  <p style="color:red"><%= flash[:alert] %></p>
+<% end %>
+
+<%= form_with url: admin_session_path, method: :post, data: { turbo: false } do %>
+  <div>
+    <%= label_tag :email, "メール" %><br>
+    <%= email_field_tag :email, nil, autocomplete: "email" %>
+  </div>
+
+  <div>
+    <%= label_tag :password, "パスワード" %><br>
+    <%= password_field_tag :password, nil, autocomplete: "current-password" %>
+  </div>
+
+  <%= submit_tag "ログイン" %>
+<% end %>

@@ -5,10 +5,18 @@ class Admin::SessionsController < Admin::ApplicationController
   end
 
   def create
-    Rails.logger.debug "PARAMS=#{params.to_unsafe_h}"
-    user = AdminUser.find_by(email: params[:email])
+    email = session_params[:email]&.strip
+    password = session_params[:password]
 
-    if user&.authenticate(params[:password])
+    if email.blank? || password.blank?
+      flash.now[:alert] = "メールアドレスとパスワードを入力してください"
+      render :new, status: :unprocessable_entity
+      return
+    end
+
+    user = AdminUser.find_by(email: email)
+
+    if user&.authenticate(password)
       session[:admin_user_id] = user.id
       redirect_to admin_events_path, notice: "ログインしました"
     else
@@ -17,8 +25,9 @@ class Admin::SessionsController < Admin::ApplicationController
     end
   end
 
-  def destroy
-    session.delete(:admin_user_id)
-    redirect_to new_admin_session_path, notice: "ログアウトしました"
+  private
+
+  def session_params
+    params.require(:session).permit(:email, :password)
   end
 end

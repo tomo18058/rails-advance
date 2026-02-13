@@ -4,16 +4,16 @@
   <p style="color:red"><%= flash[:alert] %></p>
 <% end %>
 
-<%= form_with url: admin_session_path, method: :post, data: { turbo: false } do %>
+<%= form_with url: admin_session_path, method: :post, scope: :session, local: true do |f| %>
   <div>
-    <%= label_tag :email, "メール" %><br>
-    <%= email_field_tag :email, nil, autocomplete: "email" %>
+    <%= f.label :email, "メール" %><br>
+    <%= f.email_field :email, autocomplete: "email", required: true %>
   </div>
 
   <div>
-    <%= label_tag :password, "パスワード" %><br>
-    <%= password_field_tag :password, nil, autocomplete: "current-password" %>
+    <%= f.label :password, "パスワード" %><br>
+    <%= f.password_field :password, autocomplete: "current-password", required: true %>
   </div>
 
-  <%= submit_tag "ログイン" %>
+  <%= f.submit "ログイン" %>
 <% end %>

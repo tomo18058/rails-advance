@@ -1,9 +1,9 @@
 class Event < ApplicationRecord
-  validates :name, presence: true, length: { maximum: 100 }
+  validates :title, presence: true
   validates :held_on, presence: true
-  validates :organizer, presence: true, length: { maximum: 100 }
-  validates :target, presence: true, length: { maximum: 100 }
-  validates :description, presence: true, length: { maximum: 1000 }
+  validates :organizer_name, presence: true
+  validates :target_department, presence: true
+  validates :description, presence: true
 
   scope :kept, -> { where(discarded_at: nil) }
 end

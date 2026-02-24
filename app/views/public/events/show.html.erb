@@ -5,4 +5,4 @@
 <p>対象：<%= @event.target_department %></p>
 <p><%= simple_format(@event.description) %></p>
 
-<%= link_to "一覧へ戻る", admin_events_path %>
+<%= link_to "一覧へ戻る", admin_events_path, data: { turbo: false } %>

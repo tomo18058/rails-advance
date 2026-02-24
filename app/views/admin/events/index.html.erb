@@ -15,12 +15,12 @@
   <tbody>
     <% @events.each do |event| %>
       <tr>
-        <td><%= event.name %></td>
-        <td><%= event.held_on %></td>
-        <td><%= l(event.created_at) rescue event.created_at %></td>
+        <td><%= event.title %></td>
+        <td><%= event.held_on&.strftime("%Y/%m/%d") %></td>
+        <td><%= event.created_at&.strftime("%Y/%m/%d %H:%M") %></td>
         <td>
-          <%= link_to "詳細", admin_event_path(event) %> |
-          <%= link_to "編集", edit_admin_event_path(event) %> |
+          <%= link_to "詳細", admin_event_path(event) %>
+          <%= link_to "編集", edit_admin_event_path(event) %>
           <%= link_to "削除", admin_event_path(event), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" } %>
         </td>
       </tr>

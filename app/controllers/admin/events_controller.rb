@@ -1,10 +1,13 @@
 class Admin::EventsController < Admin::ApplicationController
+  before_action :require_admin_login
+  # before_action :require_login
+
   def index
-    @events = Event.kept.order(created_at: :desc)
+    @events = Event.order(created_at: :desc)
   end
 
   def show
-    @event = Event.kept.find(params[:id])
+    @event = Event.find(params[:id])
   end
 
   def new
@@ -16,35 +19,39 @@ class Admin::EventsController < Admin::ApplicationController
     if @event.save
       redirect_to admin_events_path, notice: "イベントを登録しました"
     else
-      flash.now[:alert] = "登録に失敗しました"
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @event = Event.kept.find(params[:id])
+    @event = Event.find(params[:id])
+  end
+
+  def destroy
+    event = Event.find(params[:id])
+    event.destroy
+    redirect_to admin_events_path, notice: "削除しました"
   end
 
   def update
-    @event = Event.kept.find(params[:id])
+    @event = Event.find(params[:id])
     if @event.update(event_params)
-      redirect_to admin_events_path, notice: "イベントを更新しました"
+      redirect_to admin_event_path(@event), notice: "イベントを更新しました"
     else
-      flash.now[:alert] = "更新に失敗しました"
       render :edit, status: :unprocessable_entity
     end
-  end
-
-  # 論理削除
-  def destroy
-    event = Event.kept.find(params[:id])
-    event.update!(discarded_at: Time.current)
-    redirect_to admin_events_path, notice: "イベントを削除しました"
   end
 
   private
 
   def event_params
-    params.require(:event).permit(:name, :held_on, :organizer, :target, :description)
+    params.require(:event).permit(
+      :title,
+      :description,
+      :held_on,
+      :organizer_name,
+      :target_department,
+      :description
+    )
   end
 end

@@ -1,0 +1,19 @@
+<!-- app/views/public/events/index.html.erb -->
+<h1>公開イベント一覧</h1>
+
+<table>
+    <thead>
+        <tr>
+        <th>イベント名</th>
+        <th>開催日</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @events.each do |event| %>
+        <tr>
+            <td><%= link_to event.title, public_event_path(event) %></td>
+            <td><%= event.held_on %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

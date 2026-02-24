@@ -1,18 +1,19 @@
-<% if event.errors.any? %>
-  <div style="color: red;">
-    <p><%= event.errors.count %>件のエラーがあります</p>
-    <ul>
-      <% event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<%= form_with model: [:admin, @event] do |f| %>
 
-<%= form_with model: [:admin, event] do |f| %>
+  <% if @event.errors.any? %>
+    <div>
+      <p><%= @event.errors.count %>件のエラーがあります</p>
+      <ul>
+        <% @event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
   <div>
-    <%= f.label :name, "イベント名" %><br>
-    <%= f.text_field :name %>
+    <%= f.label :title, "イベント名" %><br>
+    <%= f.text_field :title %>
   </div>
 
   <div>
@@ -21,21 +22,19 @@
   </div>
 
   <div>
-    <%= f.label :organizer, "主催" %><br>
-    <%= f.text_field :organizer %>
+    <%= f.label :organizer_name, "主催" %><br>
+    <%= f.text_field :organizer_name %>
   </div>
 
   <div>
-    <%= f.label :target, "対象" %><br>
-    <%= f.text_field :target %>
+    <%= f.label :target_department, "対象" %><br>
+    <%= f.text_field :target_department %>
   </div>
 
   <div>
     <%= f.label :description, "説明" %><br>
-    <%= f.text_area :description, rows: 5 %>
+    <%= f.text_area :description %>
   </div>
 
-  <div>
-    <%= f.submit %>
-  </div>
+  <%= f.submit "登録" %>
 <% end %>

@@ -1,7 +1,6 @@
-# app/controllers/public/events_controller.rb
 class Public::EventsController < ApplicationController
   def index
-    @events = Event.kept.order(held_on: :asc)
+    @events = Event.kept.order(held_on: :desc)
   end
 
   def show

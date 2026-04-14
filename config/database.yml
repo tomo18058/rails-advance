@@ -23,17 +23,11 @@ default: &default
 
 development:
   <<: *default
-  database: postgres
-  host: postgres
-  username: postgres
-  password: postgres
+  database: rails_advance_development
 
 test:
   <<: *default
-  database: postgres
-  host: postgres
-  username: postgres
-  password: postgres
+  database: rails_advance_test
 
 production:
   <<: *default

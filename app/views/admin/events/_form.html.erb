@@ -1,0 +1,41 @@
+<%= form_with model: [:admin, @event], local: true do |f| %>
+  <% if @event.errors.any? %>
+    <div>
+      <h2><%= pluralize(@event.errors.count, "error") %> 件のエラーがあります</h2>
+      <ul>
+        <% @event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title, "タイトル" %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :description, "説明" %><br>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.label :held_on, "開催日" %><br>
+    <%= f.date_field :held_on %>
+  </div>
+
+  <div>
+    <%= f.label :organizer_name, "主催者名" %><br>
+    <%= f.text_field :organizer_name %>
+  </div>
+
+  <div>
+    <%= f.label :target_department, "対象学科" %><br>
+    <%= f.text_field :target_department %>
+  </div>
+
+  <div>
+    <%= f.submit @event.new_record? ? "登録" : "更新" %>
+  </div>
+<% end %>

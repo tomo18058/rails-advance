@@ -1,0 +1,10 @@
+<h1>イベント一覧</h1>
+
+<% @events.each do |event| %>
+  <div>
+    <h2><%= link_to event.title, public_event_path(event) %></h2>
+    <p>開催日: <%= event.formatted_held_on %></p>
+    <p>主催者名: <%= event.organizer_name %></p>
+    <p>対象学科: <%= event.target_department %></p>
+  </div>
+<% end %>

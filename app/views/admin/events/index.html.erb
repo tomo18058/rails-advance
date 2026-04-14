@@ -1,0 +1,29 @@
+<h1>イベント一覧（管理）</h1>
+<p>登録済みイベントを管理できます。</p>
+
+<p><%= link_to "新規イベント作成", new_admin_event_path %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>イベント名</th>
+      <th>開催日</th>
+      <th>作成日</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.title %></td>
+        <td><%= event.held_on&.strftime("%Y/%m/%d") %></td>
+        <td><%= event.created_at&.strftime("%Y/%m/%d %H:%M") %></td>
+        <td>
+          <%= link_to "詳細", admin_event_path(event) %>
+          <%= link_to "編集", edit_admin_event_path(event) %>
+          <%= link_to "削除", admin_event_path(event), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
